@@ -74,6 +74,7 @@ jobs:
           flake8 . --exit-zero --max-complexity=6
 
       - name: Upload python artifacts
+        if: ${{ matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v4
         with:
           name: python-artifact
