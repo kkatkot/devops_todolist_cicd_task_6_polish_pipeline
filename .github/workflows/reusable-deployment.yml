@@ -78,3 +78,11 @@ jobs:
           --set todoapp.secrets.DB_HOST="${{ secrets.APP_DB_HOST }}" \
           --set todoapp.image.tag=${{ github.sha }}
 
+      - name: Debug Kubernetes Failure
+        if: failure()
+        run: |
+          kubectl get pods -A
+          kubectl get events -A --sort-by='.lastTimestamp'
+          kubectl logs -l app=mysql -n mysql --tail=100
+          kubectl logs -l app=todoapp -n todoapp --tail=100
+
