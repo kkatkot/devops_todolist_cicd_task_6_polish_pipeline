@@ -58,6 +58,8 @@ spec:
             secretKeyRef:
               name: {{ .Chart.Name }}-secret
               key: DB_HOST
+        - name: ENGINE
+          value: {{ .Values.todoapp.secrets.ENGINE}}
         ports:
         - containerPort: 8080
         livenessProbe:
