@@ -33,6 +33,7 @@ todoapp:
     DB_USER: placeholder
     DB_PASSWORD: placeholder
     DB_HOST: placeholder
+    ENGINE: django.db.backends.mysql
 
   hpa:
     minReplicas: 2
