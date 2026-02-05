@@ -13,7 +13,7 @@ on:
         description: "Environment to deploy to "
         required: true
         type: choice
-        options: ["ubuntu-latest", "windows-latest"]
+        options: ["ubuntu-3.8", "windows-3.8", "ubuntu-3.9", "windows-3.9"]
       message:
         description: "Message to include in the deployment"
         required: false
