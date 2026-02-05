@@ -13,7 +13,7 @@ on:
         description: "Artifact to use for deployment"
         required: true
         type: choice
-        options: ["ubuntu-3.8", "windows-3.8", "ubuntu-3.9", "windows-3.9"]
+        options: ["ubuntu-latest-3.8", "windows-latest-3.8", "ubuntu-latest-3.9", "windows-latest-3.9"]
       message:
         description: "Message to include in the deployment"
         required: false
@@ -97,7 +97,7 @@ jobs:
     - uses: actions/download-artifact@v4
       name: Download python artifacts
       with:
-        name: ${{ github.event.input.environment || 'ubuntu-3.8' }}-python-artifact
+        name: ${{ github.event.input.environment || 'ubuntu-latest-3.8' }}-python-artifact
         path: .
 
     - name: Login to Docker Hub
@@ -122,7 +122,7 @@ jobs:
 
     - uses: actions/download-artifact@v4
       with:
-        name: helm-artifacts
+        name: ${{ github.event.input.environment || 'ubuntu-latest-3.8' }}-helm-artifacts
         path: .
 
     - name: Set Up Helm
