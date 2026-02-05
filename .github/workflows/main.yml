@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: "Environment to deploy to "
+        description: "Artifact to use for deployment"
         required: true
         type: choice
         options: ["ubuntu-3.8", "windows-3.8", "ubuntu-3.9", "windows-3.9"]
@@ -18,9 +18,6 @@ on:
         description: "Message to include in the deployment"
         required: false
         type: string
-
-
-
 
 env:
   DockerImageName: todoapp
@@ -73,24 +70,21 @@ jobs:
           flake8 . --exit-zero --max-complexity=6
 
       - name: Upload python artifacts
-        if: ${{ matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v4
         with:
-          name: python-artifact
+          name: ${{ matrix.OsType }}-${{ matrix.PythonVersion }}-python-artifact
           path: .
 
       - name: Upload helm artifacts
-        if: github.ref_name == 'main' && matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: helm-artifacts
+          name: ${{ matrix.OsType }}-${{ matrix.PythonVersion }}-helm-artifacts
           path: ${{ github.workspace }}/helm-charts
 
       - name: Upload kind cluster artifact
-        if: github.ref_name == 'main' && matrix.PythonVersion == '3.8' && matrix.OsType == 'ubuntu-latest'
         uses: actions/upload-artifact@v4
         with:
-          name: kind-cluster
+          name: ${{ matrix.OsType }}-${{ matrix.PythonVersion }}-kind-cluster-artifact
           path: ${{ github.workspace }}/cluster.yml
 
   docker-ci:
@@ -103,7 +97,7 @@ jobs:
     - uses: actions/download-artifact@v4
       name: Download python artifacts
       with:
-        name: python-artifact
+        name: ${{ github.event.input.environment || 'ubuntu-3.8' }}-python-artifact
         path: .
 
     - name: Login to Docker Hub
