@@ -11,7 +11,8 @@ todoapp:
   namespace: todoapp
   image:
     repository: katkot/todoapp
-    tag: "4.0.1"
+    # tag: "4.0.1"
+    tag: placeholder
 
   resources:
     requests:
