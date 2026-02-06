@@ -64,6 +64,14 @@ jobs:
           --set todoapp.secrets.DB_HOST="${{ secrets.APP_DB_HOST }}" \
           --set todoapp.image.tag=${{ github.sha }}
 
+      - name: Debug Secret Presence
+        run: |
+          echo "Length:"
+          echo "${#MYSQL_ROOT_PASSWORD}"
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+
+
       - name: Deploy helm to Development
         run: |
           helm upgrade --install --wait --timeout 280s --debug ${{ inputs.helm-release-name }} ./todoapp-*.tgz \
