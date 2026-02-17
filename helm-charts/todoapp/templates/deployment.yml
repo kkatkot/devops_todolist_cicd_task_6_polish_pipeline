@@ -58,11 +58,6 @@ spec:
             secretKeyRef:
               name: {{ .Chart.Name }}-secret
               key: DB_HOST
-        - name: ENGINE
-          valueFrom:
-            secretKeyRef:
-              name: {{ .Chart.Name }}-secret
-              key: ENGINE
         ports:
         - containerPort: 8080
         livenessProbe:
