@@ -10,7 +10,7 @@ mysql:
 todoapp:
   namespace: todoapp
   image:
-    repository: katkot/todoapp
+    repository: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DockerImageName }}
     # tag: "4.0.1"
     tag: placeholder
 

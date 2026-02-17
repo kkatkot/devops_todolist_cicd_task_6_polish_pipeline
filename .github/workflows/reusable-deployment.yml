@@ -31,12 +31,12 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ github.event.input.environment || 'ubuntu-latest-3.8' }}-helm-artifacts
+          name: ${{ github.event.inputs.environment || 'ubuntu-latest-3.8' }}-helm-artifacts
           path: .
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ github.event.input.environment || 'ubuntu-latest-3.8' }}-kind-cluster-artifact
+          name: ${{ github.event.inputs.environment || 'ubuntu-latest-3.8' }}-kind-cluster-artifact
           path: .
 
       - name: Set Up Helm
